@@ -1,6 +1,7 @@
-FROM python:3.13-slim
+# Explicitly target AMD64 architecture
+FROM --platform=linux/amd64 python:3.10-slim
 
-RUN pip install -U pip 
+RUN pip install -U pip
 
 WORKDIR /app
 
@@ -12,5 +13,4 @@ COPY [ "reddit_model_pipeline.joblib", "redditApp.py", "./"]
 
 EXPOSE 8000
 
-# --host=0.0.0.0 is necessary when using uvicorn inside a docker container so that you can connect to localhost or 127.0.0.1 from outside of container
-ENTRYPOINT [ "uvicorn", "redditApp:app", "--host", "0.0.0.0"]
+ENTRYPOINT [ "uvicorn", "redditApp:app", "--host", "0.0.0.0" ]

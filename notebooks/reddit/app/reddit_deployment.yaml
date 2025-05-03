@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reddit-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reddit
+  template:
+    metadata:
+      labels:
+        app: reddit
+    spec:
+      # reddit_deployment.yaml
+      containers:
+        - name: reddit-container
+          # image: reddit-app:latest
+          image: gcr.io/genuine-flight-449502-d5/reddit-app:latest
+          # imagePullPolicy: Never  # Add this line
+          imagePullPolicy: Always  # Add this line
+          ports:
+            - containerPort: 8000
